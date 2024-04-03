@@ -1,15 +1,16 @@
-using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using DG.Tweening;
+using System;
 
 public class GameController : MonoBehaviour
 {
-    [SerializeField] private GameObject _panelLimitReward;
+    [SerializeField] private CanvasGroup _panelLimitReward;
     [SerializeField] private Button _btnBackMenu;
-    [SerializeField] private GameObject _painelGetReward;
+    [SerializeField] private CanvasGroup _painelGetReward;
     [SerializeField] private TMP_Text _messageText;
     [SerializeField] private ValidatorReward _validatorReward;
 
@@ -27,7 +28,9 @@ public class GameController : MonoBehaviour
 
     private void Start()
     {
-        _painelGetReward.SetActive(false);
+        _painelGetReward.gameObject.SetActive(false);
+        _painelGetReward.DOFade(0,0);
+
         SetActivePainel(false);
 
         _messageYoLose.Add("Mas não deixe de aproveitar todas as vantagens de ser uma agência parceira Sakura.");
@@ -42,12 +45,14 @@ public class GameController : MonoBehaviour
 
     public void SetActivePainel(bool value)
     {
-        _panelLimitReward.SetActive(value);
+        _panelLimitReward.gameObject.SetActive(value);
+        _panelLimitReward.DOFade(Convert.ToInt32(value), 1.5f);
     }
 
     public void GetReward()
     {
-        _painelGetReward.SetActive(true);
+        _painelGetReward.gameObject.SetActive(true);
+        _painelGetReward.DOFade(1, 1.5f);
 
         if (RewardsController.Instance.IsGain)
         {
@@ -56,7 +61,7 @@ public class GameController : MonoBehaviour
         }
         else
         {
-            var index = Random.Range(0, _messageYoLose.Count - 1);
+            var index = UnityEngine.Random.Range(0, _messageYoLose.Count - 1);
             _messageText.text = $"Não foi dessa vez! \n {_messageYoLose[index]}";
         }
     }
