@@ -10,12 +10,12 @@ public class Mark : MonoBehaviour
 
     private void OnEnable()
     {
-        _btnSpin.onClick.AddListener(Shake);
+        //_btnSpin.onClick.AddListener(Shake);
     }
 
     private void OnDisable()
     {
-        _btnSpin.onClick.RemoveListener(Shake);
+        //_btnSpin.onClick.RemoveListener(Shake);
     }
 
     private void Shake()

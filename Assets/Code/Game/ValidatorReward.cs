@@ -11,7 +11,7 @@ public class ValidatorReward : MonoBehaviour
         {
             if (collision.TryGetComponent<Reward>(out var reward))
             {
-                Debug.Log("aaa");
+                Debug.Log($"aaa {reward.Type}");
                 RewardsController.Instance.SetIsGain((int)reward.Type);
                 _collider.enabled = false;
             }

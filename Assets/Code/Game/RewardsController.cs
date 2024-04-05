@@ -18,6 +18,7 @@ public class RewardsController : MonoBehaviour
     public bool CanCheckReward => _canCheckReward; 
 
     public static RewardsController Instance { get; private set; }
+    public int LimitReward => _limitReward;
 
     private void Awake()
     {
@@ -58,5 +59,10 @@ public class RewardsController : MonoBehaviour
     public void SetIsGain(int value)
     {
         _isGain = value;
+    }
+
+    public int GetCountRewardToGain()
+    {
+        return _limitReward - _currentCountReward;
     }
 }

@@ -21,7 +21,7 @@ public class InstantiateRewards : MonoBehaviour
             var posicaoCanvas = new Vector2(_parentRecTransform.rect.width / 2 + posX, _parentRecTransform.rect.height / 2 + posY);
 
             var go = Instantiate(_rewardPrefab.gameObject, posicaoCanvas, Quaternion.identity, _parent).GetComponent<Reward>();
-            go.Setup(i);
+           // go.Setup(i);
         }
     }
 }

@@ -8,62 +8,49 @@ using System;
 
 public class GameController : MonoBehaviour
 {
-    [SerializeField] private CanvasGroup _panelLimitReward;
-    [SerializeField] private Button _btnBackMenu;
     [SerializeField] private CanvasGroup _painelGetReward;
     [SerializeField] private TMP_Text _messageText;
     [SerializeField] private ValidatorReward _validatorReward;
+    [SerializeField] private TMP_Text _textCode;
 
-    private List<string> _messageYoLose = new List<string>();
-
-    private void OnEnable()
-    {
-        _btnBackMenu.onClick.AddListener(LoadScene);
-    }
-
-    private void OnDisable()
-    {
-        _btnBackMenu.onClick.RemoveListener(LoadScene);
-    }
+    [SerializeField] private List<string> _messageYoLose = new List<string>();
 
     private void Start()
     {
         _painelGetReward.gameObject.SetActive(false);
         _painelGetReward.DOFade(0,0);
 
-        SetActivePainel(false);
+        SetActivePainel(false, false);
 
-        _messageYoLose.Add("Mas não deixe de aproveitar todas as vantagens de ser uma agência parceira Sakura.");
-        _messageYoLose.Add("Mas vamos te dar uma nova chance. Tente outra vez!");
-        _messageYoLose.Add("Mas vamos te dar uma nova chance. Tente outra vez!");
+        _textCode.text = $"R{RewardsController.Instance.LimitReward}";
     }
 
-    private void LoadScene()
+    public void SetActivePainel(bool value, bool isGain=false)
     {
-        SceneManager.LoadScene(0);
-    }
+        _painelGetReward.gameObject.SetActive(value);
+        _painelGetReward.DOFade(Convert.ToInt32(value), 1.5f);
 
-    public void SetActivePainel(bool value)
-    {
-        _panelLimitReward.gameObject.SetActive(value);
-        _panelLimitReward.DOFade(Convert.ToInt32(value), 1.5f);
-    }
-
-    public void GetReward()
-    {
-        _painelGetReward.gameObject.SetActive(true);
-        _painelGetReward.DOFade(1, 1.5f);
-
-        if (RewardsController.Instance.IsGain)
+        if (isGain)
         {
-            RewardsController.Instance.IncreaseCurrentReward();
-            _messageText.text = " Parabéns! \n Pegue seu brinde e pinte o turismo de rosa com a gente!";
+            _messageText.text = " Parabéns! \n\n Pegue seu brinde e pinte o turismo de rosa com a gente!";
         }
         else
         {
             var index = UnityEngine.Random.Range(0, _messageYoLose.Count - 1);
-            _messageText.text = $"Não foi dessa vez! \n {_messageYoLose[index]}";
+            _messageText.text = $"Não foi dessa vez! \n\n {_messageYoLose[index]}";
         }
+    }
+
+    public void GetReward()
+    {
+        SetActivePainel(true, RewardsController.Instance.IsGain);
+
+        if (RewardsController.Instance.IsGain)
+        {
+            RewardsController.Instance.IncreaseCurrentReward();
+        }
+
+        _textCode.text = $"R{RewardsController.Instance.GetCountRewardToGain()}";
     }
 
     public void EnabledValidatorReward()
