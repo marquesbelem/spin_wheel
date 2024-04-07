@@ -52,13 +52,12 @@ public class Roulette : MonoBehaviour
             {
                 var z = _rectTransform.localEulerAngles.z + _stopSpeed * Time.deltaTime;
                 _rectTransform.localEulerAngles = new Vector3(_rectTransform.localEulerAngles.x, _rectTransform.localEulerAngles.y, z);
-                _stopSpeed -= 1;
-                _audio.pitch = _audio.pitch + 0.6f * Time.deltaTime;
+                _stopSpeed -= 5;
+                _audio.pitch = _audio.pitch + 0.5f * Time.deltaTime;
             }
             else
             {
                 _time = 0;
-                _audio.gameObject.SetActive(false);
                 _routineStop = StartCoroutine(Routine());
             }
 
@@ -75,16 +74,18 @@ public class Roulette : MonoBehaviour
     {
         _canSpin = false;
 
+        _audio.gameObject.SetActive(false);
+
         RewardsController.Instance.SetCanCheckReward(true);
+
+        StopCoroutine(_routineFlasher);
+        _routineFlasher = null;
+        _flasherController.StopInternalCoroutine();
+        _flasherController.EnableAllFlasher();
 
         yield return _waitForSeconds;
 
         _gameController.GetReward();
-
-        StopCoroutine(_routineFlasher);
-
-        _routineFlasher = null;
-        _flasherController.StopInternalCoroutine();
         _btnSpin.interactable = true;
 
         _stopSpeed = _speed;

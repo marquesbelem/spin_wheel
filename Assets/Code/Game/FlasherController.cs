@@ -8,6 +8,7 @@ public class FlasherController : MonoBehaviour
 
     [SerializeField] private float _timeToWaitForSeconds = 0.1f;
     private WaitForSeconds _waitForSeconds;
+    private Coroutine _routine;
 
     private void Start()
     {
@@ -19,7 +20,7 @@ public class FlasherController : MonoBehaviour
         _waitForSeconds = new WaitForSeconds(_timeToWaitForSeconds);
     }
 
-    private Coroutine _routine; 
+    
     public IEnumerator Routine()
     {
 
@@ -42,5 +43,13 @@ public class FlasherController : MonoBehaviour
     {
        StopCoroutine(_routine);
         _routine = null;
+    }
+
+    public void EnableAllFlasher()
+    {
+        for (int i = 0; i < _flashers.Count; i++)
+        {
+            _flashers[i].SetActive(true);
+        }
     }
 }
