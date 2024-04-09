@@ -14,6 +14,22 @@ public class GameController : MonoBehaviour
     [SerializeField] private TMP_Text _textCode;
 
     [SerializeField] private List<string> _messageYoLose = new List<string>();
+    public static GameController Instance { get; private set; }
+
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(this);
+        }
+        else
+        {
+            Instance = this;
+
+
+            DontDestroyOnLoad(this);
+        }
+    }
 
     private void Start()
     {
@@ -56,5 +72,10 @@ public class GameController : MonoBehaviour
     public void EnabledValidatorReward()
     {
         _validatorReward.EnabledCollider();
+    }
+
+    public void UpdateTextCode()
+    {
+        _textCode.text = $"R{RewardsController.Instance.LimitReward}";
     }
 }

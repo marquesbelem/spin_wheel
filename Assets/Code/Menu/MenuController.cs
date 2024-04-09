@@ -36,7 +36,8 @@ public class MenuController : MonoBehaviour
         if(Int32.TryParse(_input.text, out var number))
         {
             RewardsController.Instance.SetLimitReward(number);
-            LoadScene(1);
+            GameController.Instance.UpdateTextCode();
+           // LoadScene(1);
         }
     }
 }
