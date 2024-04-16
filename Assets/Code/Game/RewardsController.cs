@@ -29,9 +29,6 @@ public class RewardsController : MonoBehaviour
         else
         {
             Instance = this;
-
-
-            DontDestroyOnLoad(this);
         }
     }
 

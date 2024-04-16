@@ -25,17 +25,11 @@ public class GameController : MonoBehaviour
         else
         {
             Instance = this;
-
-
-            DontDestroyOnLoad(this);
         }
     }
 
     private void Start()
     {
-        _painelGetReward.gameObject.SetActive(false);
-        _painelGetReward.DOFade(0,0);
-
         SetActivePainel(false, false);
 
         _textCode.text = $"R{RewardsController.Instance.LimitReward}";

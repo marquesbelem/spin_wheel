@@ -36,7 +36,7 @@ public class Roulette : MonoBehaviour
 
     private void Start()
     {
-        _waitForSeconds = new WaitForSeconds(1.5f);
+        _waitForSeconds = new WaitForSeconds(1f);
         _stopSpeed = _speed;
 
         _audio.pitch = -3;
@@ -66,7 +66,7 @@ public class Roulette : MonoBehaviour
 
         _time += 1 * Time.deltaTime;
 
-        var newZRotation = _rectTransform.localEulerAngles.z + Random.Range(0,_speed) + _speed * Time.deltaTime;
+        var newZRotation = _rectTransform.localEulerAngles.z + Random.Range(0, _speed) + _speed * Time.deltaTime;
         _rectTransform.localEulerAngles = new Vector3(_rectTransform.localEulerAngles.x, _rectTransform.localEulerAngles.y, newZRotation);
     }
 
@@ -105,6 +105,12 @@ public class Roulette : MonoBehaviour
         }
 
         if (_time != 0) return;
+
+        if (_routineStop != null)
+        {
+            StopCoroutine(_routineStop);
+            _routineStop = null;
+        }
 
         _gameController.EnabledValidatorReward();
         _canSpin = true;
