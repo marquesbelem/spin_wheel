@@ -42,7 +42,7 @@ public class Roulette : MonoBehaviour
         _audio.pitch = -3;
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         if (_canSpin == false) return;
 

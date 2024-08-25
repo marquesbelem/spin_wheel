@@ -48,7 +48,7 @@ public class RewardsController : MonoBehaviour
         for (int i = 0; i < _configRewards.Length; i++)
         {
             limit += _configRewards[i].RewardCount;
-            if(_configRewards[i].RewardCount > 0 && 
+            if (_configRewards[i].RewardCount > 0 &&
                 _dicRewardGain.ContainsKey(_configRewards[i].RewardName) == false)
             {
                 _dicRewardGain.Add(_configRewards[i].RewardName, 0);
@@ -61,14 +61,17 @@ public class RewardsController : MonoBehaviour
     private Dictionary<string, int> _dicRewardGain = new Dictionary<string, int>();
     public string GetRewardName()
     {
-        var randomIndex = UnityEngine.Random.Range(0, _configRewards.Length - 1);
+        var randomIndex = 0;
+        if (_configRewards.Length != 1)
+            randomIndex = UnityEngine.Random.Range(0, _configRewards.Length - 1);
+
         var config = _configRewards[randomIndex];
 
         if (_dicRewardGain.ContainsKey(config.RewardName) == false ||
             config.RewardCount == _dicRewardGain[config.RewardName])
         {
-            
-            return GetRewardName(); 
+
+            return GetRewardName();
         }
 
         _dicRewardGain[config.RewardName]++;
