@@ -42,7 +42,7 @@ public class GameController : MonoBehaviour
 
         if (isGain)
         {
-            _messageText.text = " Parabéns! \n\n Pegue seu brinde e pinte o turismo de rosa com a gente!";
+            _messageText.text = $" Parabéns! \n\n Você ganhou {RewardsController.Instance.GetRewardName()}!";
         }
         else
         {
