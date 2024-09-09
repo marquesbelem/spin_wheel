@@ -33,6 +33,7 @@ public class GameController : MonoBehaviour
         SetActivePainel(false, false);
 
         _textCode.text = $"R{RewardsController.Instance.LimitReward}";
+        Screen.orientation = ScreenOrientation.Portrait;
     }
 
     public void SetActivePainel(bool value, bool isGain=false)
