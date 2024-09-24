@@ -36,7 +36,7 @@ public class GameController : MonoBehaviour
         Screen.orientation = ScreenOrientation.Portrait;
     }
 
-    public void SetActivePainel(bool value, bool isGain=false)
+    public void SetActivePainel(bool value, bool isGain = false)
     {
         _painelGetReward.gameObject.SetActive(value);
         _painelGetReward.DOFade(Convert.ToInt32(value), 1.5f);
@@ -44,29 +44,23 @@ public class GameController : MonoBehaviour
         if (RewardsController.Instance.CheckIsLose())
         {
             var index = UnityEngine.Random.Range(0, _messageYoLose.Count - 1);
-            _messageText.text = $"Não foi dessa vez! \n\n {_messageYoLose[index]}" +
-                  $"\n{RewardsController.Instance.GetRewardCount()}";
+            _messageText.text = $"Não foi dessa vez! \n\n {_messageYoLose[index]}";
 
             return;
         }
 
         if (isGain)
         {
-            _messageText.text = $" Parabéns! \n\n Você ganhou {RewardsController.Instance.GetRewardName()}!" +
-                $"\n{RewardsController.Instance.GetRewardCount()}";
+            _messageText.text = $"{RewardsController.Instance.GetRewardName()}";
+
+            RewardsController.Instance.IncreaseCurrentReward();
+            _textCode.text = $"R{RewardsController.Instance.GetCountRewardToGain()}";
         }
     }
 
     public void GetReward()
     {
         SetActivePainel(true, RewardsController.Instance.IsGain());
-
-        if (RewardsController.Instance.IsGain())
-        {
-            RewardsController.Instance.IncreaseCurrentReward();
-        }
-
-        _textCode.text = $"R{RewardsController.Instance.GetCountRewardToGain()}";
     }
 
     public void EnabledValidatorReward(bool value)

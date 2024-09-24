@@ -69,8 +69,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "digite a \nquantidade"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 60147fa9f91f4904b91b799ad9e31a05, type: 2}
-  m_sharedMaterial: {fileID: -578992260329334687, guid: 60147fa9f91f4904b91b799ad9e31a05, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 56a28d291d8bac44cbcafc453a4c089a, type: 2}
+  m_sharedMaterial: {fileID: -5640689357035045276, guid: 56a28d291d8bac44cbcafc453a4c089a, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -224,8 +224,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\u200B"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 60147fa9f91f4904b91b799ad9e31a05, type: 2}
-  m_sharedMaterial: {fileID: -578992260329334687, guid: 60147fa9f91f4904b91b799ad9e31a05, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 56a28d291d8bac44cbcafc453a4c089a, type: 2}
+  m_sharedMaterial: {fileID: -5640689357035045276, guid: 56a28d291d8bac44cbcafc453a4c089a, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -255,7 +255,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -746,8 +746,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Caixa de som JBL
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 60147fa9f91f4904b91b799ad9e31a05, type: 2}
-  m_sharedMaterial: {fileID: -578992260329334687, guid: 60147fa9f91f4904b91b799ad9e31a05, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 56a28d291d8bac44cbcafc453a4c089a, type: 2}
+  m_sharedMaterial: {fileID: -5640689357035045276, guid: 56a28d291d8bac44cbcafc453a4c089a, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -777,7 +777,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 1
+  m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535

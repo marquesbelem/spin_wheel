@@ -14,6 +14,10 @@ public class ConfigReward : MonoBehaviour
     public int RewardCount => m_RewardCount;
     public string RewardName => m_RewardNameText.text;
 
+    public string Description => _description;
+
+    [SerializeField] private string _description;
+
     private void Awake()
     {
         m_InputField.onValueChanged.AddListener(UpdateCount);

@@ -5,15 +5,15 @@ public class Reward : MonoBehaviour
 {
     public enum TypeReward
     {
-        Lose,
-        Gain
+        Lose = 0,
+        Gain = 1
     }
 
     [SerializeField] private TypeReward _type;
     [SerializeField] private List<string> _name;
-
     public TypeReward Type => _type;
     public int CountName => _name.Count;
+
     public string Name
     {
         get

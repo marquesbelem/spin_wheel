@@ -18,7 +18,7 @@ public class RewardsController : MonoBehaviour
     public bool IsGain()
     {
         if (_currentReward == null) return false;
-        else  return Convert.ToBoolean(_currentReward.Type);
+        else return Convert.ToBoolean(_currentReward.Type);
     }
 
 
@@ -96,7 +96,7 @@ public class RewardsController : MonoBehaviour
             _dicRewardGain[config.RewardName]++;
         }
 
-        return $"{config.RewardName}";
+        return $"{config.Description}";
     }
 
     public string GetRewardCount()
