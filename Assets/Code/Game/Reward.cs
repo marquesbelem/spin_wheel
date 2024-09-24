@@ -14,6 +14,7 @@ public class Reward : MonoBehaviour
     public TypeReward Type => _type;
     public int CountName => _name.Count;
 
+
     public string Name
     {
         get

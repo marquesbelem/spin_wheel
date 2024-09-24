@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using DG.Tweening;
 using System;
+using Newtonsoft.Json.Linq;
 
 public class GameController : MonoBehaviour
 {
@@ -15,6 +16,7 @@ public class GameController : MonoBehaviour
 
     [SerializeField] private List<string> _messageYoLose = new List<string>();
     public static GameController Instance { get; private set; }
+    [SerializeField] private Roulette _roulette;
 
     private void Awake()
     {
@@ -30,7 +32,9 @@ public class GameController : MonoBehaviour
 
     private void Start()
     {
-        SetActivePainel(false, false);
+
+        _painelGetReward.gameObject.SetActive(false);
+        _painelGetReward.DOFade(Convert.ToInt32(false), 1.5f);
 
         _textCode.text = $"R{RewardsController.Instance.LimitReward}";
         Screen.orientation = ScreenOrientation.Portrait;
@@ -41,21 +45,26 @@ public class GameController : MonoBehaviour
         _painelGetReward.gameObject.SetActive(value);
         _painelGetReward.DOFade(Convert.ToInt32(value), 1.5f);
 
-        if (RewardsController.Instance.CheckIsLose())
+        if (RewardsController.Instance.GetCountRewardToGain() <= 0)
         {
-            var index = UnityEngine.Random.Range(0, _messageYoLose.Count - 1);
-            _messageText.text = $"Não foi dessa vez! \n\n {_messageYoLose[index]}";
-
+            _messageText.text = $"Acabou os prêmios";
             return;
         }
+        if (isGain == false) return;
 
-        if (isGain)
+        if (RewardsController.Instance.CheckIsLose())
+        {
+            _messageText.text = $"{RewardsController.Instance.GetRandomRewardName()}";
+        }
+
+        else
         {
             _messageText.text = $"{RewardsController.Instance.GetRewardName()}";
-
-            RewardsController.Instance.IncreaseCurrentReward();
-            _textCode.text = $"R{RewardsController.Instance.GetCountRewardToGain()}";
         }
+
+
+        RewardsController.Instance.IncreaseCurrentReward();
+        _textCode.text = $"R{RewardsController.Instance.GetCountRewardToGain()}";
     }
 
     public void GetReward()

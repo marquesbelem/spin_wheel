@@ -97,7 +97,7 @@ public class Roulette : MonoBehaviour
     }
 
 
-    private void Spin()
+    public void Spin()
     {
         RewardsController.Instance.SetCanCheckReward(false);
 
