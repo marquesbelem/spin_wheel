@@ -18,7 +18,7 @@ public class Mark : MonoBehaviour
         //_btnSpin.onClick.RemoveListener(Shake);
     }
 
-    private void Shake()
+    public void Shake()
     {
         _rect.DOShakeAnchorPos(_durationShake, new Vector2(10, 0));
     }

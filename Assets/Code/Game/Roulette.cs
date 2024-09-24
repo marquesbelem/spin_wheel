@@ -15,6 +15,7 @@ public class Roulette : MonoBehaviour
 
     [SerializeField] private AudioSource _audio;
     [SerializeField] private GameObject _audioBackground;
+    [SerializeField] private Mark _mark;
 
     private float _time;
 
@@ -85,13 +86,16 @@ public class Roulette : MonoBehaviour
 
         yield return _waitForSeconds;
 
-        _gameController.GetReward();
         _btnSpin.interactable = true;
 
         _stopSpeed = _speed;
         _audio.pitch = -3;
         _audioBackground.SetActive(false);
+
+        yield return 0.2f;
+        _gameController.GetReward();
     }
+
 
     private void Spin()
     {
@@ -112,8 +116,9 @@ public class Roulette : MonoBehaviour
             _routineStop = null;
         }
 
-        _gameController.EnabledValidatorReward();
+        _gameController.EnabledValidatorReward(true);
         _canSpin = true;
+        _mark.Shake();
 
         _routineFlasher = StartCoroutine(_flasherController.Routine());
         _btnSpin.interactable = false;

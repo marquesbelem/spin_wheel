@@ -41,22 +41,27 @@ public class GameController : MonoBehaviour
         _painelGetReward.gameObject.SetActive(value);
         _painelGetReward.DOFade(Convert.ToInt32(value), 1.5f);
 
-        if (isGain)
-        {
-            _messageText.text = $" Parabéns! \n\n Você ganhou {RewardsController.Instance.GetRewardName()}!";
-        }
-        else
+        if (RewardsController.Instance.CheckIsLose())
         {
             var index = UnityEngine.Random.Range(0, _messageYoLose.Count - 1);
-            _messageText.text = $"Não foi dessa vez! \n\n {_messageYoLose[index]}";
+            _messageText.text = $"Não foi dessa vez! \n\n {_messageYoLose[index]}" +
+                  $"\n{RewardsController.Instance.GetRewardCount()}";
+
+            return;
+        }
+
+        if (isGain)
+        {
+            _messageText.text = $" Parabéns! \n\n Você ganhou {RewardsController.Instance.GetRewardName()}!" +
+                $"\n{RewardsController.Instance.GetRewardCount()}";
         }
     }
 
     public void GetReward()
     {
-        SetActivePainel(true, RewardsController.Instance.IsGain);
+        SetActivePainel(true, RewardsController.Instance.IsGain());
 
-        if (RewardsController.Instance.IsGain)
+        if (RewardsController.Instance.IsGain())
         {
             RewardsController.Instance.IncreaseCurrentReward();
         }
@@ -64,9 +69,9 @@ public class GameController : MonoBehaviour
         _textCode.text = $"R{RewardsController.Instance.GetCountRewardToGain()}";
     }
 
-    public void EnabledValidatorReward()
+    public void EnabledValidatorReward(bool value)
     {
-        _validatorReward.EnabledCollider();
+        _validatorReward.EnabledCollider(value);
     }
 
     public void UpdateTextCode()

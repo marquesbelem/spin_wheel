@@ -14,9 +14,13 @@ public class RewardsController : MonoBehaviour
 
     [SerializeField] private bool _canCheckReward;
 
-    private int _isGain;
 
-    public bool IsGain => Convert.ToBoolean(_isGain);
+    public bool IsGain()
+    {
+        if (_currentReward == null) return false;
+        else  return Convert.ToBoolean(_currentReward.Type);
+    }
+
 
     public bool CanCheckReward => _canCheckReward;
 
@@ -24,6 +28,8 @@ public class RewardsController : MonoBehaviour
     public int LimitReward => _limitReward;
 
     [SerializeField] private ConfigReward[] _configRewards;
+    private Reward _currentReward;
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -59,24 +65,55 @@ public class RewardsController : MonoBehaviour
     }
 
     private Dictionary<string, int> _dicRewardGain = new Dictionary<string, int>();
-    public string GetRewardName()
+    public bool CheckIsLose()
     {
-        var randomIndex = 0;
-        if (_configRewards.Length != 1)
-            randomIndex = UnityEngine.Random.Range(0, _configRewards.Length - 1);
+        var config = GetConfig();
 
-        var config = _configRewards[randomIndex];
+        if (config == null) return true;
 
-        if (_dicRewardGain.ContainsKey(config.RewardName) == false ||
+        if (_dicRewardGain.ContainsKey(_currentReward.Name) == false ||
             config.RewardCount == _dicRewardGain[config.RewardName])
         {
+            if (_currentReward.CountName > 1)
+            {
+                config = GetConfig();
+            }
 
-            return GetRewardName();
+            return true;
         }
 
-        _dicRewardGain[config.RewardName]++;
+        return false;
+    }
 
-        return config.RewardName;
+    public string GetRewardName()
+    {
+        var config = GetConfig();
+
+        if (config == null) return "";
+
+        if (_dicRewardGain[config.RewardName] < config.RewardCount)
+        {
+            _dicRewardGain[config.RewardName]++;
+        }
+
+        return $"{config.RewardName}";
+    }
+
+    public string GetRewardCount()
+    {
+        var config = GetConfig();
+
+        if (config == null) return "";
+
+        return $"<size=70>R{_dicRewardGain[config.RewardName]}/{config.RewardCount}</size>";
+    }
+
+    private ConfigReward GetConfig()
+    {
+        if (_configRewards.Length == 0 || _currentReward == null) return null;
+
+        var config = _configRewards.First(c => c.RewardName == _currentReward.Name);
+        return config;
     }
 
     public bool IsLimitReward()
@@ -100,9 +137,9 @@ public class RewardsController : MonoBehaviour
         _canCheckReward = value;
     }
 
-    public void SetIsGain(int value)
+    public void SetCurrentReward(Reward rw)
     {
-        _isGain = value;
+        _currentReward = rw;
     }
 
     public int GetCountRewardToGain()
