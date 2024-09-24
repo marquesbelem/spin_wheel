@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,9 +7,7 @@ using UnityEngine.UI;
 public class ConfigReward : MonoBehaviour
 {
     [SerializeField] private TMPro.TMP_Text m_RewardNameText;
-    [SerializeField] private TMPro.TMP_Text m_RewardCountText;
-    [SerializeField] private Button m_AddCountReward; 
-    [SerializeField] private Button m_RemoveCountReward;
+    [SerializeField] private TMPro.TMP_InputField m_InputField;
 
     [SerializeField] private int m_RewardCount;
 
@@ -17,27 +16,17 @@ public class ConfigReward : MonoBehaviour
 
     private void Awake()
     {
-        m_AddCountReward.onClick.AddListener(Add);
-        m_RemoveCountReward.onClick.AddListener(Remove);
+        m_InputField.onValueChanged.AddListener(UpdateCount);
     }
 
-    private void Add()
+    private void UpdateCount(string value)
     {
-        m_RewardCount++;
-        UpdateRewardCountText();
-    }
-
-    private void Remove()
-    {
-        if (m_RewardCount == 0) return; 
-        m_RewardCount--;
-
-        UpdateRewardCountText();
-    }
-
-    private void UpdateRewardCountText()
-    {
-        m_RewardCountText.text = m_RewardCount.ToString();
+        if (string.IsNullOrEmpty(value))
+        {
+            m_RewardCount = 0;
+            return;
+        }
+        m_RewardCount = Convert.ToInt32(value);
     }
 
 }
