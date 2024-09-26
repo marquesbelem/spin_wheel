@@ -23,12 +23,17 @@ public class Reward : MonoBehaviour
         }
     }
 
+    int randomIndex = -1;
     private string GetName()
     {
-        var randomIndex = 0;
-        if (_name.Count != 1)
-            randomIndex = UnityEngine.Random.Range(0, _name.Count - 1);
+        randomIndex++;
 
+        if (randomIndex >= _name.Count)
+        {
+            randomIndex = 0;
+        }
+
+        Debug.Log($"randomIndex: {randomIndex}");
         return _name[randomIndex];
     }
 

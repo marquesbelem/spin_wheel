@@ -70,11 +70,12 @@ public class RewardsController : MonoBehaviour
     private Dictionary<string, int> _dicRewardGain = new Dictionary<string, int>();
     public bool CheckIsLose()
     {
-        var config = _configRewards.First(c => c.RewardName == _currentReward.Name);
+        var nameReward = _currentReward.Name;
+        var config = _configRewards.First(c => c.RewardName == nameReward);
 
         if (config == null) return true;
 
-        if (_dicRewardGain.ContainsKey(_currentReward.Name) == false ||
+        if (_dicRewardGain.ContainsKey(nameReward) == false ||
             config.RewardCount == _dicRewardGain[config.RewardName])
         {
             if (_currentReward.CountName > 1)
@@ -122,7 +123,8 @@ public class RewardsController : MonoBehaviour
 
     public string GetRewardName()
     {
-        var config = _configRewards.First(c => c.RewardName == _currentReward.Name);
+        var nameReward = _currentReward.Name;
+        var config = _configRewards.First(c => c.RewardName == nameReward);
 
         return GetDescription(config);
     }
